@@ -1,19 +1,11 @@
 public class Worker
 {
   float currX = width/2, currY = height/2;
-  int movementDirectionX = 1;
-  int movementDirectionY= 1;
-  int speed = 5;
-  int radius = 30;
-  boolean left = false;
-  boolean up = false;
+  int movementDirectionX = 1, movementDirectionY = 1;
+  float speed = 5.0;
+  int radius = 50;
   
-  void MoveWorker(float getMouseX, float getMouseY)
-  { 
-    float xLocationComparedToWorker = getMouseX - currX;
-    float yLocationComparedToWorker = getMouseY - currY;
-    
-    SetMovementDirection(xLocationComparedToWorker, yLocationComparedToWorker);
+  void MoveWorker(float getMouseX, float getMouseY){ 
     GenerateWorker();
   }
   
@@ -22,89 +14,36 @@ public class Worker
   {
     stroke(255, 255, 255);
     noFill();
-    currX += speed * movementDirectionX;
-    currY += speed * movementDirectionY;
-    //currX = width/2;
-   // currY = height/2;
+    SetMovementdirection();
+    //currX += speed * movementDirectionX;
+    //currY += speed * movementDirectionY;
     circle(currX, currY, radius);
+    GenerateRayCast(RaycastPosition.UP);
+    GenerateRayCast(RaycastPosition.RIGHT);
+    GenerateRayCast(RaycastPosition.DOWN);
+    GenerateRayCast(RaycastPosition.LEFT);
   }
   
-  void SetMovementDirection(float xLocationComparedToWorker, float yLocationComparedToWorker)
+  
+  void GenerateRayCast(RaycastPosition position)
   {
-    boolean change = false;
-    
+    int setLineLength = 200;
+    stroke(0, 255, 255);
+   
+  }
+  
+  
+  void SetMovementdirection(){
     if (currX >= width || currX <= 0)
     {
-      left = !left;
-      change = true;
+      movementDirectionX *= -1;
     }
+    
     
     if (currY >= height || currY <= 0)
     {
-      up = !up;
-      change = true;
-    }
-    
-    
-    if (left && change)
-    {
-      movementDirectionX = -1;
-    }else
-    {
-      movementDirectionX = 1;
-    }
-    
-   
-    if (up && change)
-    {
-      movementDirectionY = -1;
-    }
-    else
-    {
-      movementDirectionY = 1; 
-    }
-    
-    if (change)
-    {
-      return;
-    }
-    
-    println("Current X: " + xLocationComparedToWorker);
-    println("Current Y: " + yLocationComparedToWorker);
-    
-    if (xLocationComparedToWorker <= 50 && xLocationComparedToWorker >= 0 || xLocationComparedToWorker >= -50 && xLocationComparedToWorker < 0)
-    {    
-      if (yLocationComparedToWorker > 50 || yLocationComparedToWorker < -50)
-      {
-        return;
-      }
-      
-      if (currX < width && currX > 0)
-      {
-        println("Change direction");
-         left = !left;
-         up = !up;
-         return;
-      }
-    }
-    
-    
-    if (left)
-    {
-      movementDirectionX = -1;
-    }else
-    {
-      movementDirectionX = 1;
-    }
-    
-   
-    if (up)
-    {
-      movementDirectionY = -1;
-    }
-    else
-    {
-      movementDirectionY = 1; 
+      movementDirectionY *= -1;
     }
   }
+  
 }
